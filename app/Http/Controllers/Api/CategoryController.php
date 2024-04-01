@@ -47,7 +47,7 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $url
+     * @param  string  $url
      * @return \Illuminate\Http\Response
      */
     public function show($url)
@@ -61,12 +61,16 @@ class CategoryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  string  $url
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdateCategory $request, $url)
     {
-        //
+        $category = $this->repository->where('url', $url)->firstOrFail();
+
+        $category->update($request->validated());
+
+        return response()->json(['message' => 'success']);
     }
 
     /**
