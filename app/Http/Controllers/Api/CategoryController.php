@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Category;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUpdateCategory;
 use App\Http\Resources\CategoryResource;
 use Illuminate\Http\Request;
 
@@ -35,9 +36,12 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCategory $request)
     {
-        //
+        
+        $category = $this->repository->create($request->validated());
+
+        return new CategoryResource($category);
     }
 
     /**
