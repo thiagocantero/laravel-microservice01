@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreUpdateCategory;
+use App\Http\Requests\StoreUpdateCompany;
 use App\Http\Resources\CompanyResource;
 
 
@@ -36,9 +37,11 @@ class CompanyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdateCompany $request)
     {
-        //
+        $company = $this->repository->create($request->validated());
+
+        return new CompanyResource($company);
     }
 
     /**
